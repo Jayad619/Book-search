@@ -33,8 +33,20 @@ const resolvers = {
         const token = signToken(user);
         return { token, user };
       },
+      saveBook: async (parent, { bookId, title, authors, description, image, link }, context) => {
+        if (context.user) {
+          const addBook = await User.findByIdAndUpdate(
+            { _id: context.user._id },
+            {$addToSet: {savedBooks: { bookId, title, authors, description, image, link }},
+            },
+            { new: true }
+          );
+          return addBook;
+        }
+        throw new AuthenticationError("You are not signed in!");
 
   },
+},
 
 
 };
