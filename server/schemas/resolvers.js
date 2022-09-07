@@ -44,11 +44,23 @@ const resolvers = {
           return addBook;
         }
         throw new AuthenticationError("You are not signed in!");
-
+    },
+    removeBook: async (parent, {bookId}, context) => {
+      if (context.user) {
+        try {
+          const removeBook = await User.findOneAndUpdate(
+            {_id: context.user._id},
+            {$pull: {savedBooks: {bookId}}},
+            {new: true}
+          );
+          return removeBook;
+        } catch (err) {
+          console.log(err);
+        }
+      }
+      throw new AuthenticationError("You are not signed in!");
+    },
   },
-},
-
-
 };
 
 module.exports = resolvers;
