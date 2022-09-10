@@ -8,7 +8,7 @@ import { removeBookId } from '../utils/localStorage';
 import Auth from '../utils/auth';
 
 const SavedBooks = () => {
-  // Query and save data to use for the page.
+  
   const { loading, data } = useQuery(GET_ME);
   const user = data?.me || {};
 
@@ -17,7 +17,7 @@ const SavedBooks = () => {
   const handleRemoveBook = async (bookId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     if (!token) {
-      return false; // could be just return (?)
+      return false; 
     }
     try {
       const { data } = await removeBook({
@@ -29,7 +29,7 @@ const SavedBooks = () => {
     }
   };
 
-  // if data isn't here yet, say so
+  
   if (loading) {
     return <h2>LOADING...</h2>;
   }
