@@ -4,6 +4,7 @@ const secret = "mysecretssshhhhhhh";
 const expiration = "2h";
 
 module.exports = {
+  // fixed the signup with the {}
   authMiddleware: function ({ req }) {
     let token = req.query.token || req.headers.authorization;
 
